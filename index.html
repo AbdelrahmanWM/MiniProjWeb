@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Companion Super App | UX/UI Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2F6FED;
+            --primary-light: #EEF4FF;
+            --secondary: #24A67B;
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            letter-spacing: -0.05em;
+            line-height: 1.1;
+        }
+
+        header .subtitle {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .author-meta {
+            font-size: 1rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            display: inline-block;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            margin-bottom: 4rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 1.5rem;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1.25rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .content-card {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .figure {
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .figure figcaption {
+            margin-top: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .grid-img {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .grid-img img {
+            width: 100%;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 2.5rem 0;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 1rem;
+        }
+
+        th, td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .highlight-box {
+            background: var(--primary-light);
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 0.75rem 0.75rem 0;
+            margin: 2rem 0;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 6rem 0 4rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Persona Cards */
+        .persona-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .persona-card {
+            background: var(--surface);
+            padding: 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .persona-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            object-fit: contain;
+            border-bottom: 1px solid var(--border);
+            background: white;
+        }
+
+        .persona-info {
+            padding: 3rem;
+        }
+
+        .persona-info h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+            color: var(--primary);
+        }
+
+        @media (max-width: 640px) {
+            .persona-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .persona-card img {
+                margin-right: 0;
+            }
+        }
+
+        /* Chart Placeholder for frequency analysis */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            padding: 20px;
+            background: var(--primary-light);
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        .bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .bar {
+            width: 30px;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+        }
+
+        .bar-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transform: rotate(-45deg);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.25rem; }
+            .content-card { padding: 1.5rem; }
+            nav ul { gap: 1rem; }
+            nav a { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Health Companion Super App</h1>
+            <p class="subtitle">UX/UI Case Study</p>
+            <div class="author-meta">
+                <strong>Abdel-Rahman Khalifa</strong> (40253332)<br>
+                SOEN 357 • McGill University / Concordia
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#personas">Personas</a></li>
+                <li><a href="#journeys">Journeys</a></li>
+                <li><a href="#design">Design</a></li>
+                <li><a href="#prototype">Prototype</a></li>
+                <li><a href="#testing">Testing</a></li>
+            </ul>
+        </nav>
+
+        <!-- INTRODUCTION -->
+        <section id="intro">
+            <div class="content-card">
+                <h2>Introduction</h2>
+                <h3>App Overview</h3>
+                <p>Patients living with chronic health conditions often struggle to consistently manage their medications and medical appointments. This challenge becomes more significant during non-routine days or when individuals experience psychological stress, cognitive overload, or personal distractions. Missed doses and forgotten appointments can negatively affect treatment outcomes and overall health stability.</p>
+                <p>The Health Companion Super App is designed to provide a simple, reliable, and accessible user experience that supports medication adherence and appointment management. The application reduces cognitive load through structured reminders, clear visual hierarchy, and intuitive navigation.</p>
+                <p>In addition to medication tracking, the app offers quick access to hospital hotlines and personal healthcare providers, positioning it as a centralized health companion. Special emphasis is placed on accessibility, privacy, and trust, ensuring that users feel confident and secure while managing sensitive medical information.</p>
+
+                <h3>Problem Context</h3>
+                <p>Existing health applications often focus on isolated features such as reminders or appointment booking, but rarely integrate medication management, communication access, and emergency resources into a single cohesive experience. This fragmentation increases cognitive load and reduces long-term engagement.</p>
+
+                <h3>Project Goals</h3>
+                <ul>
+                    <li>Increase the likelyhood of on-time medication adherence</li>
+                    <li>Reduce missed medical appointments</li>
+                    <li>Minimize cognitive load associated with health management</li>
+                    <li>Provide a centralized and trustworthy health management platform</li>
+                    <li>Ensure accessibility for elderly users while maintaining efficiency for young people.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- USER RESEARCH -->
+        <section id="research">
+            <div class="content-card">
+                <h2>User Research</h2>
+                <h3>Research Methodology</h3>
+                <p>Research combined:</p>
+                <ul>
+                    <li>Competitive analysis of leading medication management applications</li>
+                    <li>Review mining of publicly available user feedback</li>
+                    <li>Rapid secondary review of medication adherence literature</li>
+                </ul>
+
+                <h3>Data Sources Overview</h3>
+                <p>Rather than conducting a primary survey, this study analyzed publicly available user reviews from three established medication management applications: <strong>Medisafe</strong>, <strong>MyTherapy</strong>, and <strong>Dosecast</strong>. The collected reviews represent diverse users managing recurring medications, including long-term chronic conditions and short-term prescriptions.</p>
+
+                <h3>Key Findings</h3>
+                <ul>
+                    <li>Users frequently experience reminder reliability issues</li>
+                    <li>Complex onboarding and multi-step actions create frustration</li>
+                    <li>Excessive notifications lead to disengagement</li>
+                    <li>Users want simple, fast interaction rather than feature-heavy systems</li>
+                    <li>Limited data export and privacy transparency reduce trust</li>
+                </ul>
+
+                <div class="figure">
+                    <div class="bar-chart">
+                        <div class="bar-wrapper"><div class="bar" style="height: 180px;"></div><span class="bar-label">Notifications (9)</span></div>
+                        <div class="bar-wrapper"><div class="bar" style="height: 160px;"></div><span class="bar-label">Complex UI (8)</span></div>
+                        <div class="bar-wrapper"><div class="bar" style="height: 140px;"></div><span class="bar-label">Friction (7)</span></div>
+                        <div class="bar-wrapper"><div class="bar" style="height: 100px;"></div><span class="bar-label">Export (5)</span></div>
+                        <div class="bar-wrapper"><div class="bar" style="height: 120px;"></div><span class="bar-label">Subscription (6)</span></div>
+                        <div class="bar-wrapper"><div class="bar" style="height: 80px;"></div><span class="bar-label">Privacy (4)</span></div>
+                    </div>
+                    <figcaption>Frequency of recurring usability issues identified in cross-application review analysis</figcaption>
+                </div>
+
+                <h3>Thematic Analysis</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Theme</th>
+                                <th>Evidence from Review Analysis</th>
+                                <th>Design Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Reminder Reliability</strong></td>
+                                <td>Users report delayed or buggy notifications</td>
+                                <td>High-reliability reminder engine</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Interaction Friction</strong></td>
+                                <td>Multi-step confirmations and forced fields frustrate users</td>
+                                <td>One-tap confirmation system</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Notification Fatigue</strong></td>
+                                <td>Aggressive or repetitive alerts cause annoyance</td>
+                                <td>Customizable and adaptive alerts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feature Overload</strong></td>
+                                <td>Interfaces described as cluttered or overwhelming</td>
+                                <td>Minimalist and focused UI design</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Ownership</strong></td>
+                                <td>Difficulty exporting records and privacy concerns</td>
+                                <td>Simple export and transparent data controls</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Cross-Application Issue Comparison</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Issue</th>
+                                <th>Medisafe</th>
+                                <th>MyTherapy</th>
+                                <th>Dosecast</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Notification Reliability Issues</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Complex / Fragmented UI</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Data Export Limitations</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Subscription / Premium Friction</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Forced Login / Cloud Sync</td>
+                                <td>×</td>
+                                <td>×</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Interaction Irreversibility</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PERSONAS -->
+        <section id="personas">
+            <div class="content-card">
+                <h2>User Personas</h2>
+                <p>From the review analysis and competitive research, three main types of users became clear. These personas represent real usage patterns observed in existing medication management apps. Each one highlights a different way people interact with these systems: someone who depends on reminders working reliably, someone managing a stable daily routine who wants simplicity, and someone coordinating care for another person.</p>
+                
+                <div class="persona-grid">
+                    <div class="persona-card">
+                        <img src="persona1_Daniel.png" alt="Daniel">
+                        <div class="persona-info">
+                            <h4>Daniel</h4>
+                            <p>Daniel represents users who rely heavily on reminders to manage medication that must be taken at specific times. For this group, the biggest concern is reliability. If a reminder fails or is delayed, it can disrupt their entire day. They are less interested in extra features and more concerned with knowing the app will work consistently without needing to double-check it.</p>
+                        </div>
+                    </div>
+
+                    <div class="persona-card">
+                        <img src="persona2_Linda.png" alt="Linda">
+                        <div class="persona-info">
+                            <h4>Linda</h4>
+                            <p>Linda represents users who take medication as part of a long-term, stable routine. They use the app mainly as a support tool and prefer something simple that fits naturally into their day. Complicated interfaces, extra steps, or frequent design changes can feel frustrating because they interrupt habits that are already established.</p>
+                        </div>
+                    </div>
+
+                    <div class="persona-card">
+                        <img src="persona3_Maria.png" alt="Maria">
+                        <div class="persona-info">
+                            <h4>Maria</h4>
+                            <p>Maria represents caregivers who are managing medication for someone else, such as a parent or family member. In this case, the goal is not just receiving reminders, but being able to see information clearly, coordinate with others, and understand what has already been done. These users need shared visibility and clarity rather than personalization or advanced features.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOURNEY MAPS -->
+        <section id="journeys">
+            <div class="content-card">
+                <h2>User Journey Maps</h2>
+                
+                <h3>Journey Map – Daniel</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Stage</th><th>Action</th><th>Emotion</th><th>Pain Point</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Realization</td><td>Notices reduced focus and realizes he may have missed medication</td><td>Concerned</td><td>Cannot immediately confirm medication status</td></tr>
+                            <tr><td>Verification</td><td>Opens the app to check history and sees an earlier reminder</td><td>Frustrated</td><td>System reliability is unclear</td></tr>
+                            <tr><td>Double-Checking</td><td>Re-checks logs multiple times throughout the day</td><td>Anxious</td><td>Lack of trust forces repeated manual verification</td></tr>
+                            <tr><td>Interruption</td><td>Receives a notification but must open the app to confirm</td><td>Skeptical</td><td>Cannot rely on notification alone</td></tr>
+                            <tr><td>Configuration</td><td>Tries to add or adjust medication plan</td><td>Overwhelmed</td><td>Multi-step forms and unclear workflow</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Journey Map – Linda</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Stage</th><th>Action</th><th>Emotion</th><th>Pain Point</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Morning Routine</td><td>Opens app as part of daily habit to confirm medication</td><td>Calm</td><td>Wants quick confirmation without disruption</td></tr>
+                            <tr><td>Logging</td><td>Attempts to mark medication as taken</td><td>Annoyed</td><td>Too many prompts or confirmation steps</td></tr>
+                            <tr><td>Interaction</td><td>Navigates through checkboxes and extra fields</td><td>Frustrated</td><td>App adds unnecessary complexity</td></tr>
+                            <tr><td>Update</td><td>Notices interface changes after an app update</td><td>Confused</td><td>Familiar workflow has changed unexpectedly</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Journey Map – Maria</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Stage</th><th>Action</th><th>Emotion</th><th>Pain Point</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Care Coordination</td><td>Checks medication status for her father before visiting</td><td>Responsible</td><td>Needs quick overview across schedules</td></tr>
+                            <tr><td>Accessing Info</td><td>Logs into app from another device</td><td>Confused</td><td>Account or device restrictions create friction</td></tr>
+                            <tr><td>Verification</td><td>Looks for instructions on dosage or timing</td><td>Pressured</td><td>Information buried in multiple menus</td></tr>
+                            <tr><td>Monitoring</td><td>Reviews whether medication has been taken</td><td>Cautious</td><td>No clear shared visibility between caregivers</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORYBOARD & FLOW -->
+        <section id="storyboard">
+            <div class="content-card">
+                <h2>Storyboard & Flow</h2>
+                <h3>Visual Narrative</h3>
+                <p>To provide a clear visualization of the user interaction flow, we developed a storyboard for our persona, Linda, demonstrating how she uses the app to maintain her long-term medication routine. This sequence illustrates a design that prioritizes minimal friction and reinforces established habits.</p>
+                
+                <div class="figure">
+                    <img src="linda_storyboard.png" alt="Linda Storyboard">
+                    <figcaption>Storyboard – Daily Interaction Flow for Persona: Linda</figcaption>
+                </div>
+
+                <h3>User Flow Diagram</h3>
+                <p>The following diagram represents the navigation and task flow of the application, showing the simplified path from notification to confirmation.</p>
+                <div class="figure">
+                    <img src="userflow.png" alt="User Flow Diagram">
+                    <figcaption>User Flow Chart – Simplified Task Architecture</figcaption>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKETCHES & WIREFRAMES -->
+        <section id="design">
+            <div class="content-card">
+                <h2>Sketches and Wireframes</h2>
+                <h3>Low-Fidelity Sketch Iterations</h3>
+                <p>The design process began with hand-drawn sketches to explore layout ideas. Two iterations were created to progressively refine structure, hierarchy, and usability.</p>
+                <div class="grid-img">
+                    <img src="sketches1.png" alt="Sketch Iteration 1">
+                    <img src="sketches2.png" alt="Sketch Iteration 2">
+                </div>
+
+                <h3>Wireframes</h3>
+                <p>Based on the validated sketches, higher-fidelity wireframes were produced to translate the conceptual layouts into structured digital designs. These focus on defining content placement and functional grouping.</p>
+                <div class="grid-img">
+                    <img src="homewire.png" alt="Home Wireframe">
+                    <img src="medswire.png" alt="Meds Wireframe">
+                    <img src="appointmentswire.png" alt="Appointments Wireframe">
+                </div>
+                <div class="grid-img">
+                    <img src="logswire.png" alt="Logs Wireframe">
+                    <img src="confirmwire.png" alt="Confirmation Wireframe">
+                    <img src="caregiverwire.png" alt="Caregiver Wireframe">
+                </div>
+            </div>
+        </section>
+
+        <!-- UI DESIGN DECISIONS -->
+        <section id="ui-decisions">
+            <div class="content-card">
+                <h2>UI Design Decisions</h2>
+                <h3>Color Palette</h3>
+                <p>The color system was intentionally limited to a small set of functional colors to reduce cognitive load and maintain clarity.</p>
+                <ul>
+                    <li><strong>Primary Blue (#2F6FED):</strong> Used for navigation, headers, and key elements. Selected for trust and stability.</li>
+                    <li><strong>Confirmation Green (#24A67B):</strong> Used for successful actions. Provides clear, positive feedback signal.</li>
+                    <li><strong>Neutral Backgrounds (#F5F7FB, #FFFFFF):</strong> Create a calm interface and reduce visual fatigue.</li>
+                    <li><strong>Support Grays (#6B7280):</strong> Used for secondary information and content structure.</li>
+                </ul>
+
+                <h3>Typography</h3>
+                <p>The interface uses a system sans-serif typeface (Inter / SF Pro) to ensure readability and performance.</p>
+                <ul>
+                    <li>Minimum base size of <strong>16px</strong> to support accessibility.</li>
+                    <li>Clear typographic hierarchy with bold headings and muted secondary text.</li>
+                    <li>System fonts for consistency with native mobile environments.</li>
+                </ul>
+
+                <h3>Layout and Interaction Style</h3>
+                <p>The UI follows a mobile-first, card-based layout inspired by native iOS design patterns.</p>
+                <ul>
+                    <li>Rounded cards visually separate tasks into manageable units.</li>
+                    <li>Single-action screens minimize decision complexity.</li>
+                    <li>Bottom navigation bar provides persistent access to core sections.</li>
+                    <li>Generous spacing reduces accidental taps and supports users with limited dexterity.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PROTOTYPE -->
+        <section id="prototype">
+            <div class="content-card">
+                <h2>Interactive Prototype</h2>
+                <p>The interactive prototype was implemented as a lightweight web-based simulation to validate navigation clarity and task flow.</p>
+                
+                <div class="highlight-box">
+                    <strong>Live Prototype:</strong> <a href="https://abdelrahmanwm.github.io/MiniProjProto/" target="_blank">https://abdelrahmanwm.github.io/MiniProjProto/</a>
+                </div>
+
+                <div class="grid-img">
+                    <img src="home.png" alt="Home Dashboard">
+                    <img src="appointments.png" alt="Appointments View">
+                    <img src="meds.png" alt="Medication List">
+                </div>
+                <div class="grid-img">
+                    <img src="caregiver.png" alt="Caregiver Dashboard">
+                    <img src="confirm.png" alt="Dose Confirmation">
+                    <img src="log.png" alt="Medication History">
+                </div>
+                <p style="text-align:center; font-style:italic;">Interactive Prototype Screens overview</p>
+            </div>
+        </section>
+
+        <!-- USABILITY TESTING -->
+        <section id="testing">
+            <div class="content-card">
+                <h2>Usability Testing</h2>
+                <h3>Testing Plan</h3>
+                <p>Because this project focused on design and prototyping rather than deployment, a hypothesis-driven evaluation was used instead of formal usability testing. This approach assesses whether the design decisions logically address the usability problems identified during research.</p>
+
+                <h3>Evaluation Rationale</h3>
+                <p>Prior review analysis revealed that existing medication-management applications suffer from multi-step interaction flows, visual/functional overload, and lack of trust caused by unclear system feedback.</p>
+
+                <h3>Design Hypotheses</h3>
+                <ul>
+                    <li><strong>H1:</strong> A one-tap medication confirmation flow will reduce cognitive effort compared to multi-step logging workflows.</li>
+                    <li><strong>H2:</strong> A minimal, card-based layout will improve information scanning and allow users to verify tasks more quickly.</li>
+                    <li><strong>H3:</strong> Persistent bottom navigation will provide predictable movement between tasks.</li>
+                </ul>
+
+                <h3>Analytical Validation</h3>
+                <p>Confirming a medication requires a single action from the home screen, eliminating navigation depth. Each screen presents one primary purpose, avoiding feature competition. Information is grouped into discrete cards, enabling rapid visual parsing.</p>
+
+                <h3>Expected Outcomes</h3>
+                <ul>
+                    <li>Reduce decision time for recurring tasks</li>
+                    <li>Improve adherence through predictable confirmation feedback</li>
+                    <li>Lower user fatigue during repeated daily interactions</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- REFLECTION & CONCLUSION -->
+        <section id="reflection">
+            <div class="content-card">
+                <h2>Reflection</h2>
+                <p>This project demonstrated how small usability frictions can significantly affect adherence behaviors in health-related contexts. By grounding design decisions in real user feedback rather than feature expansion, the final solution emphasizes reliability, clarity, and low cognitive demand. The iterative process reinforced that, for routine-driven applications, reducing interaction complexity is more valuable than adding functionality.</p>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <div class="content-card">
+                <h2>Conclusion</h2>
+                <p>The Health Companion Super App illustrates a user-centered approach to designing for consistency-driven tasks such as medication adherence and care coordination. Through research synthesis, persona modeling, workflow simplification, and iterative prototyping, the design prioritizes trust, accessibility, and efficiency over feature density. The resulting system provides a focused, scalable foundation for supporting both independent users and caregivers in managing daily health responsibilities.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Abdel-Rahman Khalifa • Built for SOEN 357 Case Study • <a href="file:///d:/Concordia/Material/SOEN357/MiniProjWeb/report.tex" style="color:var(--text-muted); text-decoration: underline;">View LaTeX Source</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>
